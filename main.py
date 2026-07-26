@@ -43,10 +43,10 @@ def now_iso() -> str:
 
 
 def public_base_url(request: Request) -> str:
-    configured = os.getenv("A2A_BASE_URL", "").strip().rstrip("/")
+    configured = os.getenv("A2A_BASE_URL", "").strip()
     if configured:
         return configured
-    return f"{request.url.scheme}://{request.url.netloc}/a2a"
+    return f"{request.url.scheme}://{request.url.netloc}"
 
 
 def principal_hash(token: str) -> str:
@@ -144,12 +144,19 @@ async def agent_card(request: Request) -> JSONResponse:
         "skills": [
             {
                 "id": "invoice_action_agent",
-                "name": "Invoice action reconciliation",
+                "name": "Invoice Action Agent",
                 "description": (
-                    "Reads invoice claim batches, preserves exact evidence, proposes "
-                    "typed actions, and records accepted receipt-bound executions."
+                    "Understands synthetic invoice packages, extracts exact source "
+                    "evidence, proposes one typed business action per package, and "
+                    "executes only receipt-bound accepted proposals."
                 ),
-                "tags": ["invoice", "reconciliation", "approval", "evidence"],
+                "tags": [
+                    "invoice_action_agent",
+                    "invoice",
+                    "reconciliation",
+                    "evidence",
+                    "approval",
+                ],
                 "inputModes": [INPUT_MODE],
                 "outputModes": [PROPOSAL_MODE, RECEIPT_MODE],
             }
