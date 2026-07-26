@@ -97,3 +97,38 @@ Content-Type: application/a2a+json
 The protocol and storage layers are implemented independently of the model.
 For best hidden-package accuracy, configure an OpenAI-compatible model. The
 fallback is conservative and may not identify every hidden document pattern.
+
+
+## Base URL compatibility
+
+The application exposes both route sets:
+
+```text
+/message:send
+/tasks/{id}
+/tasks
+/tasks/{id}:cancel
+```
+
+and:
+
+```text
+/a2a/message:send
+/a2a/tasks/{id}
+/a2a/tasks
+/a2a/tasks/{id}:cancel
+```
+
+Recommended submission:
+
+```text
+https://YOUR-SERVICE.onrender.com
+```
+
+Set:
+
+```text
+A2A_BASE_URL=https://YOUR-SERVICE.onrender.com
+```
+
+The Agent Card will then advertise the same exact submitted base URL.
