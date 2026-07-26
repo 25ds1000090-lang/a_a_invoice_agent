@@ -158,6 +158,7 @@ async def agent_card(request: Request) -> JSONResponse:
     return JSONResponse(content=card, media_type="application/json")
 
 
+@app.post("/message:send", include_in_schema=False)
 @app.post("/a2a/message:send")
 async def message_send(
     request: Request,
@@ -465,6 +466,7 @@ async def process_continuation(
     return task_response(task, envelope=True)
 
 
+@app.get("/tasks/{task_id}", include_in_schema=False)
 @app.get("/a2a/tasks/{task_id}")
 async def get_task(
     task_id: str,
@@ -486,6 +488,7 @@ async def get_task(
         return task_response(task_from_row(row))
 
 
+@app.get("/tasks", include_in_schema=False)
 @app.get("/a2a/tasks")
 async def list_tasks(
     authorization: str | None = Header(default=None),
@@ -504,6 +507,7 @@ async def list_tasks(
     )
 
 
+@app.post("/tasks/{task_id}:cancel", include_in_schema=False)
 @app.post("/a2a/tasks/{task_id}:cancel")
 async def cancel_task(
     task_id: str,
