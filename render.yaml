@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: a2a-invoice-agent
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /.well-known/agent-card.json
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.13.4
+      - key: A2A_BASE_URL
+        sync: false
+      - key: DATABASE_PATH
+        value: /tmp/a2a_invoice_agent.sqlite3
+      - key: AI_BASE_URL
+        sync: false
+      - key: AI_API_KEY
+        sync: false
+      - key: AI_MODEL
+        sync: false
